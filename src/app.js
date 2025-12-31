@@ -20,9 +20,12 @@ app.use(helmet({
 }));
 
 // CORS Setup
-const allowOrigin = process.env.CORS_ORIGIN || "http://localhost:3000";
 app.use(cors({
-  origin: allowOrigin,
+  origin: [
+    "http://localhost:3000",               // Cho phép máy tính cá nhân
+    "https://btck-shop.vercel.app",        // Cho phép Frontend trên Vercel (Thay đúng link của bạn)
+    process.env.CORS_ORIGIN                // Cho phép thêm từ biến môi trường (nếu có)
+  ].filter(Boolean),                       // Lọc bỏ giá trị rỗng
   credentials: true,
 }));
 
@@ -52,7 +55,7 @@ apiV1.use("/products", productsRouter); // -> /api/v1/products
 apiV1.use("/orders", ordersRouter);     // -> /api/v1/orders
 apiV1.use("/stats", statsRouter);  // -> /api/v1/stats
 apiV1.use("/customers", customersRouter);  // -> /api/v1/customers
-app.use("/api/v1/reviews", reviewsRouter); // -> /api/v1/reviews
+apiV1.use("/reviews", reviewsRouter); // -> /api/v1/reviews
 // Kích hoạt toàn bộ Router V1
 app.use("/api/v1", apiV1);
 
