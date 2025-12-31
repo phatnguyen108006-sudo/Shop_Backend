@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const uri = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017";
-const dbName = process.env.MONGODB_DB || "btck_db";
+const dbName = process.env.MONGODB_DB || "btck-shop";
 
 let isConnected = false;
 
